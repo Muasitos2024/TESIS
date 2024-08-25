@@ -1,0 +1,183 @@
+\documentclass[12pt,a4paper]{report}
+
+% Paquete para modificar títulos y subtítulos
+\usepackage{titlesec}
+
+% Modificar tamaño de los capítulos
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\centering\fontsize{12pt}{14pt}\selectfont} % Ajusta el tamaño
+  {CAPÍTULO \Roman{chapter}}
+  {1em}
+  {}
+
+% Modificar tamaño de las secciones
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{12pt}{13pt}\selectfont} % Ajusta el tamaño
+  {\thesection.}{1em}{}
+
+% Modificar tamaño de las subsecciones
+\titleformat{\subsection}
+  {\normalfont\bfseries\fontsize{12pt}{12pt}\selectfont} % Ajusta el tamaño
+  {\thesubsection.}{1em}{}
+
+
+
+
+
+
+
+% Paquetes para gráficos y matemáticas
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18} % Configuración para compatibilidad de pgfplots
+\pgfmathdeclarefunction{gauss}{2}{%
+  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+
+% Paquetes para codificación de caracteres y fuentes
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx} % Times New Roman
+\usepackage{microtype}
+\usepackage{gensymb}
+\usepackage{textcomp}
+\usepackage{verbatim}
+
+% Paquetes para lenguaje y bibliografía
+\usepackage[spanish]{babel}
+\usepackage[style=numeric, citestyle=numeric, backend=biber]{biblatex}
+\addbibresource{bibliografia/references.bib}
+
+% Configuración de la geometría de la página
+\usepackage[left=3.81cm,right=2.54cm,top=2.54cm,bottom=2.54cm,headheight=1.27cm,headsep=1.27cm,footskip=1.27cm]{geometry}
+
+% Paquetes para gráficos, tablas y otros
+\usepackage{xcolor} % para definir colores
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{colortbl} % para colorear las celdas
+\usepackage{booktabs} % para mejores líneas horizontales
+\usepackage{caption}
+\captionsetup[figure]{skip=2pt} % ajusta el espacio entre la figura y la leyenda
+
+\usepackage{pdflscape} % página horizontal del anexo
+\usepackage{lscape}   % para rotación de páginas
+\usepackage{tablefootnote} % pie de página en tablas
+\usepackage{threeparttable}
+\usepackage{tabularx} % para tablas con ancho ajustable
+\usepackage{enumitem}
+\usepackage{siunitx} % para alineación de números decimales y unidades
+\usepackage{amsmath, amssymb}
+\usepackage{csquotes}
+\usepackage{makecell}
+
+% Paquete para el control del interlineado
+\usepackage{setspace}
+\setstretch{1.5} % Establece el interlineado a 1.5
+
+% Configuración de los títulos de los capítulos y espaciado
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\centering\fontsize{14pt}{16pt}\selectfont}
+  {CAPÍTULO \Roman{chapter}}
+  {1em}
+  {}
+\titlespacing*{\chapter} {0pt} {30pt} {20pt}
+
+% Configuraciones de cabeceras y pies de página
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+\fancypagestyle{mystyle}{
+    \fancyhf{}
+    \fancyfoot[R]{\thepage} % número de página a la derecha
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+\pagestyle{mystyle}
+
+% Configuración final para hipervínculos
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black, filecolor=black, urlcolor=black]{hyperref}
+\usepackage{bookmark}
+
+\addto\captionsspanish{\renewcommand{\tablename}{\textbf{Tabla}}}
+
+\addto\captionsspanish{\renewcommand{\figurename}{\textit{\textbf{Figura}}}}
+
+
+\begin{document}
+
+% Portada (sin número de página)
+\thispagestyle{empty}
+\input{Portada/Portada.tex}
+\clearpage
+
+% Página del nombre del asesor
+\newpage
+\thispagestyle{empty} % Sin encabezados ni pies de página
+\vspace*{\fill} % Espacio vertical para centrar el contenido
+\begin{center} % Centrar el contenido horizontalmente
+  \Large % Tamaño de fuente grande
+  Asesor:\\
+  \textbf{Dr. José Vladimir CORNEJO TUEROS}
+\end{center}
+\vspace*{\fill} % Espacio al final para equilibrar
+\newpage
+
+% Índices
+\pagenumbering{roman} % Numeración romana para páginas preliminares
+\tableofcontents
+\listoftables
+\listoffigures
+\clearpage
+
+% Incluir la página de título en el índice (si es necesario)
+\addcontentsline{toc}{chapter}{Portada}
+
+% Secciones preliminares
+\input{Preliminares/Agradecimientos.tex}
+\addcontentsline{toc}{section}{Agradecimientos}
+
+\input{Preliminares/Dedicatoria.tex}
+\addcontentsline{toc}{section}{Dedicatoria}
+
+\input{Preliminares/Resumen.tex}
+\addcontentsline{toc}{section}{Resumen}
+
+\input{Preliminares/Abstract.tex}
+\addcontentsline{toc}{section}{Abstract}
+
+\clearpage
+\pagenumbering{arabic} % Cambia la numeración a números arábigos para el resto del documento
+
+% Capítulos del contenido principal
+\input{Capitulos/Introduccion.tex}
+\input{Capitulos/capitulo1.tex}
+\input{Capitulos/capitulo2.tex}
+%\input{Capitulos/capitulo3.tex}
+\input{Capitulos/capitulo4.tex}
+\input{Capitulos/conclusiones}
+
+% Bibliografía
+\printbibliography
+
+% Iniciar la sección de anexos
+\appendix
+\chapter*{Anexos} % Título de la sección de anexos
+\addcontentsline{toc}{chapter}{Anexos} % Agrega "Anexos" al índice
+\markboth{ANEXOS}{} % Opcional: Encabezado de la sección de anexos
+\renewcommand{\thefigure}{A.\arabic{figure}} % Cambia la numeración a A.1, A.2, etc.
+\setcounter{figure}{0} % Resetea el contador de figuras para los anexos
+\renewcommand{\thetable}{A.\arabic{table}} % Cambia la numeración a A.1, A.2, etc.
+\setcounter{table}{0} % Resetea el contador de tablas para los anexos
+
+% Aquí incluyes tus anexos como capítulos individuales
+\input{Anexos/anexo1.tex}
+
+% Más anexos si los hay...
+
+\end{document}
